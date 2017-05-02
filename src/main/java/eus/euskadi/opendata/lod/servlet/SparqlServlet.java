@@ -19,7 +19,7 @@ public class SparqlServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		
 		PrintWriter out = resp.getWriter();
-		out.print("Sparql servlet");
+		out.print("Sparql servlet ");
 		out.flush();
 		out.close();
 	}
