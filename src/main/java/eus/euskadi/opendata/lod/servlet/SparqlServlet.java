@@ -23,4 +23,16 @@ public class SparqlServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
+	}
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
 }
