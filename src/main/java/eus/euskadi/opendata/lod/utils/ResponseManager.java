@@ -41,7 +41,7 @@ public class ResponseManager {
 		return INSTANCE;
 	}
 	
-	public void redirectPostSparqlRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
+	public void redirectPostRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = null;
 		HttpResponse response = null;
@@ -116,14 +116,13 @@ public class ResponseManager {
 		}
 	}
     
-	public void redirectGetSparqlRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
+	public void redirectGetRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		HttpResponse response = null;
 
-		String theServerHost = url;
+		String theReqUrl = url;
 
-		String theReqUrl = theServerHost;
 		if (log.isDebugEnabled()) log.debug("> Sparql-proxy: "+ theReqUrl); 
 
 		try {

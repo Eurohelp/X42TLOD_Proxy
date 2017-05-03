@@ -27,7 +27,7 @@ public class SparqlServlet extends HttpServlet {
 			if (req.getHeader("Accept").contains("text/html")){
 				goToEndpoint(req, resp); 
 			}else{
-				ResponseManager.getInstance().redirectGetSparqlRequest(req, resp, PropertiesManager.getInstance().getProperty("sparql.endpoint"));
+				ResponseManager.getInstance().redirectGetRequest(req, resp, PropertiesManager.getInstance().getProperty("sparql.endpoint"));
 			}
 		} catch (Exception e) {
 			throw new ServletException(e);
@@ -40,7 +40,7 @@ public class SparqlServlet extends HttpServlet {
 			if (req.getHeader("Accept").contains("text/html")){	
 				goToEndpoint(req, resp); 
 			}else{
-				ResponseManager.getInstance().redirectPostSparqlRequest(req,resp, PropertiesManager.getInstance().getProperty("sparql.endpoint"));
+				ResponseManager.getInstance().redirectPostRequest(req,resp, PropertiesManager.getInstance().getProperty("sparql.endpoint"));
 			}
 		} catch (Exception e) {
 			throw new ServletException(e);
