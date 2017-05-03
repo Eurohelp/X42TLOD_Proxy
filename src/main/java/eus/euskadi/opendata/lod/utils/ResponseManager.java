@@ -41,12 +41,12 @@ public class ResponseManager {
 		return INSTANCE;
 	}
 	
-	public void doPostSparqlResponse(HttpServletRequest theReq, HttpServletResponse theResp) throws Exception {
+	public void redirectPostSparqlRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = null;
 		HttpResponse response = null;
 
-		String theServerHost = PropertiesManager.getInstance().getProperty("sparql.endpoint");
+		String theServerHost = url;
 
 		String theReqUrl = theServerHost;
 		if (log.isDebugEnabled()) log.debug("> Sparql-proxy: "+ theReqUrl); 
@@ -116,12 +116,12 @@ public class ResponseManager {
 		}
 	}
     
-	public void doGetSparqlResponse(HttpServletRequest theReq, HttpServletResponse theResp) throws Exception {
+	public void redirectGetSparqlRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		HttpResponse response = null;
 
-		String theServerHost = PropertiesManager.getInstance().getProperty("sparql.endpoint");
+		String theServerHost = url;
 
 		String theReqUrl = theServerHost;
 		if (log.isDebugEnabled()) log.debug("> Sparql-proxy: "+ theReqUrl); 
