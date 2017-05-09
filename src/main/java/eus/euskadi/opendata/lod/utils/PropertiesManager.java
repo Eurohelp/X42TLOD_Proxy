@@ -7,8 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
+import eus.euskadi.opendata.lod.servlet.DataServlet;
 
 /**
  * @author grozadilla
@@ -16,10 +17,15 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PropertiesManager {
 
-	private Log log = LogFactory.getLog(PropertiesManager.class);
+	final static Logger logger = Logger.getLogger(DataServlet.class);
 	private static PropertiesManager INSTANCE = null;
 	private Properties prop = null;
 	
+	/**
+	 *  Get a PropertiesManager instance
+	 * @return PropertiesManager instance
+	 * @throws IOException
+	 */
 	public synchronized static PropertiesManager getInstance() throws IOException {
 		if (INSTANCE == null) {
 			INSTANCE = new PropertiesManager();
@@ -29,14 +35,23 @@ public class PropertiesManager {
 		return INSTANCE;
 	}
 	
+	/**
+	 * Loads properties from file
+	 * @throws IOException
+	 */
 	public void loadProperties () throws IOException{
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream input = classLoader.getResourceAsStream("proxy.properties");
 		prop = new Properties();
 		prop.load(input);
-		log.info("Properties file loaded"); 
+		logger.info("Properties file loaded"); 
 	}
 	
+	/**
+	 * Gets a property value 
+	 * @param property the property key
+	 * @return the property value
+	 */
 	public String getProperty(String property){
 		return prop.getProperty(property);
 	}

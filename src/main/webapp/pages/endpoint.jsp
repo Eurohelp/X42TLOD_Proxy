@@ -24,7 +24,7 @@
 				xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 				
 	    	},
-	    	crossDomain: true
+	    	crossDomain: false
 		});
 	var yasqe = YASQE(document.getElementById("yasgui"),{
 		backdrop: true,
