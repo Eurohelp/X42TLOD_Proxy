@@ -47,12 +47,11 @@ public class ResourceServlet extends HttpServlet {
 				
 				
 				try {
-					HttpResponse response = HttpManager.getInstance().doGetRequest(req, resp, url);
+					HttpResponse response = HttpManager.getInstance().doGetRequest(req, resp, url, null);
 			        HttpEntity entity = response.getEntity();
 
 			            // Read the contents of an entity and return it as a String.
 			        String content = EntityUtils.toString(entity);
-			        System.out.println(content);
 			        boolean page = false;
 			        JSONParser parser = new JSONParser();
 			        JSONObject obj = (JSONObject)parser.parse(content);

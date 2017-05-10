@@ -15,6 +15,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -134,13 +135,9 @@ public class HttpManager {
 		try {
 			aInStream = response.getEntity().getContent();
 			aOutStream = theResp.getOutputStream();
-
-			int data = aInStream.read();
-			while(data != -1) {
-				aOutStream.write(data);
-
-				data = aInStream.read();
-			}
+			
+			IOUtils.copy(aInStream,aOutStream);
+			
 		}
 		catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -265,7 +262,7 @@ public class HttpManager {
 	 * @return
 	 * @throws Exception
 	 */
-	public HttpResponse doGetRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
+	public HttpResponse doGetRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url, String accept) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 
@@ -300,8 +297,8 @@ public class HttpManager {
 			while (aHeadersEnum.hasMoreElements()) {
 				String aHeaderName = aHeadersEnum.nextElement();
 				String aHeaderVal = theReq.getHeader(aHeaderName);
-				if ("accept".equals(aHeaderName.toLowerCase())){
-					httpget.setHeader(aHeaderName, "application/json");
+				if ("accept".equals(aHeaderName.toLowerCase()) && (accept == null || accept.isEmpty())){
+						httpget.setHeader(aHeaderName, "application/json");
 				}else{
 					httpget.setHeader(aHeaderName, aHeaderVal);
 				}
