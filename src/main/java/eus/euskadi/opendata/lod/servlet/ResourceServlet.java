@@ -39,8 +39,8 @@ public class ResourceServlet extends HttpServlet {
 				String triplestore = PropertiesManager.getInstance().getProperty("lod.triplestore.url");
 				
 				//create ASK query
-				String uriBasePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.uri.base"),lang);
-				String completeURI = uriBasePath + resourceURI.replaceFirst("/data/", "/id/");
+				String uriBasePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.uri.base.path"),lang);
+				String completeURI = uriBasePath + resourceURI.replaceFirst("/kos/", "/id/");
 				String query = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.sparql.query.ask"), completeURI);
 				//add query as parameter to URL
 				String url = triplestore + "?query="+URLEncoder.encode(query, "UTF-8");
@@ -68,7 +68,7 @@ public class ResourceServlet extends HttpServlet {
 						resp.addHeader("Location", redirectUri);
 					}else{
 						String baseDocPath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.doc.url.base"),lang);
-						String redirectUri = baseDocPath + resourceURI.replaceFirst("/"+resourceId+"/", "/doc/");
+						String redirectUri = baseDocPath + resourceURI.replaceFirst("/"+resourceId+"/", "");
 						resp.setStatus(HttpServletResponse.SC_SEE_OTHER);
 						resp.addHeader("Location", redirectUri);
 					}
