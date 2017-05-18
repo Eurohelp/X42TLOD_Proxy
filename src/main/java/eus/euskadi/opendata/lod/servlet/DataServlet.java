@@ -29,7 +29,7 @@ public class DataServlet extends HttpServlet {
 		String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
 		
 		String lang = "es";
-		String basePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.data.url.base"),lang);
+		String basePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.uri.base.path"),lang);
 		String completeURI = basePath + resourceURI.replaceFirst("/data/", "/id/");
 		//add query as parameter to URL
 		String query = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.sparql.query.describe"), completeURI);
