@@ -1,0 +1,815 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY schema "http://schema.org/" >
+    <!ENTITY dbpedia "http://dbpedia.org/ontology/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY aragodef "http://opendata.aragon.es/def/Aragopedia#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://opendata.aragon.es/def/Aragopedia#"
+     xml:base="http://opendata.aragon.es/def/Aragopedia"
+     xmlns:schema="http://schema.org/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:dbpedia="http://dbpedia.org/ontology/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:aragodef="http://opendata.aragon.es/def/Aragopedia#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <owl:Ontology rdf:about="http://opendata.aragon.es/def/Aragopedia">
+        <rdfs:comment xml:lang="en">This is the ontology that is currently used as a vocabulary for the publication of Linked Data coming from Aragopedia (http://opendata.aragon.es/Aragopedia).</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta es la ontología que se utiliza actualmente para la publicación de datos de la Aragopedia (http://opendata.aragon.es/Aragopedia/)</rdfs:comment>
+        <owl:versionIRI rdf:resource="http://opendata.aragon.es/def/Aragopedia/1.0.0"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://dbpedia.org/ontology/country -->
+
+    <owl:ObjectProperty rdf:about="&dbpedia;country">
+        <rdfs:label xml:lang="en">country</rdfs:label>
+        <rdfs:label xml:lang="es">país</rdfs:label>
+        <rdfs:comment xml:lang="en">Property that specifies the country to which an administrative region belongs</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#contieneMunicipio -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;contieneMunicipio">
+        <rdfs:label xml:lang="en">contains municipality</rdfs:label>
+        <rdfs:label xml:lang="es">contiene municipio</rdfs:label>
+        <rdfs:comment xml:lang="en">This property allows representing the municipalities that a Comarca, Province or Comunidad Autónoma contains</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad permite determinar los municipios que una comarca, provincia o comunidad autónoma contiene</rdfs:comment>
+        <rdfs:domain rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:range rdf:resource="&dbpedia;Municipality"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#enComarca -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;enComarca">
+        <rdfs:label xml:lang="en">in comarca</rdfs:label>
+        <rdfs:label xml:lang="es">en comarca</rdfs:label>
+        <rdfs:comment xml:lang="en">This property identifies the comarca to which a municipality belongs</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad identifica la comarca a la que pertenece un municipio</rdfs:comment>
+        <rdfs:domain rdf:resource="&dbpedia;Municipality"/>
+        <rdfs:range rdf:resource="&aragodef;Comarca"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#enComunidadAutonoma -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;enComunidadAutonoma">
+        <rdfs:label xml:lang="en">region</rdfs:label>
+        <rdfs:label xml:lang="es">comunidad autónoma</rdfs:label>
+        <rdfs:comment xml:lang="en">Property that specifies the region (comunidad autónoma) to which a municipality or any other region belongs</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#gender -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;gender">
+        <rdfs:label xml:lang="en">gender</rdfs:label>
+        <rdfs:label xml:lang="es">género</rdfs:label>
+        <rdfs:comment xml:lang="en">gender associated to the statistical observation that it is linked to</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#refArea -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;refArea">
+        <rdfs:label xml:lang="en">geographical area of reference</rdfs:label>
+        <rdfs:label xml:lang="es">área geográfica de referencia</rdfs:label>
+        <rdfs:comment xml:lang="en">The geographical area to which a statistical observation refers</rdfs:comment>
+        <rdfs:range rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#tipoEstablecimiento -->
+
+    <owl:ObjectProperty rdf:about="&aragodef;tipoEstablecimiento">
+        <rdfs:label xml:lang="en">type of establishment</rdfs:label>
+        <rdfs:label xml:lang="es">tipo de establecimiento</rdfs:label>
+        <rdfs:comment xml:lang="en">The type of touristic establishment (hotel, apartment, rural hotel, or camping) that a statistical observation refers to</rdfs:comment>
+        <rdfs:range rdf:resource="&aragodef;TipoEstablecimientoTuristico"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#areaTotal -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;areaTotal">
+        <rdfs:label xml:lang="en">total area</rdfs:label>
+        <rdfs:label xml:lang="es">superficie total</rdfs:label>
+        <rdfs:comment xml:lang="en">This property allows representing the total area of a municipality</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad permite representar la superficie total de un municipio</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#codigoINE -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;codigoINE">
+        <rdfs:label xml:lang="en">INE code</rdfs:label>
+        <rdfs:label xml:lang="es">código INE</rdfs:label>
+        <rdfs:comment xml:lang="en">This is the code that corresponds to the governmental administrative region according to the Instituto Nacional de Estadística (INE)</rdfs:comment>
+        <rdfs:comment xml:lang="es">Código INE correspondiente a esta región administrativa</rdfs:comment>
+        <rdfs:domain rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasoleoBiodiesel -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasoleoBiodiesel">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasoleoOtros -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasoleoOtros">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasoleoTipoA -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasoleoTipoA">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasoleoTipoB -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasoleoTipoB">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasoleoTipoC -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasoleoTipoC">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasolina95 -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasolina95">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasolina97 -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasolina97">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasolina98 -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasolina98">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#consumoGasolinaTotal -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;consumoGasolinaTotal">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboCombustible"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#dimensionCuboCombustible -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;dimensionCuboCombustible">
+        <rdfs:comment xml:lang="en">Specific dimension property used in the data cube on petrol consumption</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#dimensionCuboReciclaje -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;dimensionCuboReciclaje">
+        <rdfs:comment xml:lang="en">Specific dimension property used in the data cube on recycling</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#dimensionCuboTurismo -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;dimensionCuboTurismo">
+        <rdfs:comment xml:lang="en">Specific dimension property used in the data cube on tourism</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#dimensionCuboUsoSuelo -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;dimensionCuboUsoSuelo">
+        <rdfs:comment xml:lang="en">Specific dimension property used in the data cube on soil usage</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasAeropuertos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasAeropuertos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasAgricolaVegNat -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasAgricolaVegNat">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasArrozales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasArrozales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasBosquesFrondosas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasBosquesFrondosas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasBosquesMixtos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasBosquesMixtos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasCarreterasTren -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasCarreterasTren">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasConiferas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasConiferas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasCultivosRegadio -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasCultivosRegadio">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasCultivosSecano -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasCultivosSecano">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasCursosAgua -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasCursosAgua">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasEscasaVegetacion -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasEscasaVegetacion">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasEscombrerasVertederos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasEscombrerasVertederos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasFrutales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasFrutales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasGlaciarNievePermanente -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasGlaciarNievePermanente">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasHumedales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasHumedales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasInstalacionesDeportivas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasInstalacionesDeportivas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasLaminasAgua -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasLaminasAgua">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasMatorralBoscoso -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasMatorralBoscoso">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasMatorralesEsclerof -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasMatorralesEsclerof">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasMatorralesHumedos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasMatorralesHumedos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasMosaicoCultivos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasMosaicoCultivos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasOlivares -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasOlivares">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasPastizalesNaturales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasPastizalesNaturales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasPlayasDunasArenales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasPlayasDunasArenales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasRoquedos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasRoquedos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasTejUrbanoContinuo -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasTejUrbanoContinuo">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasTejUrbanoDiscontinuo -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasTejUrbanoDiscontinuo">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasTurberas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasTurberas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasViniedos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasViniedos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasZonasConstruccion -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasZonasConstruccion">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasZonasIndustrialesComerciales -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasZonasIndustrialesComerciales">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasZonasMineras -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasZonasMineras">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasZonasQuemadas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasZonasQuemadas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#hectareasZonasVerdesUrbanas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;hectareasZonasVerdesUrbanas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#mayor -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;mayor">
+        <rdfs:label xml:lang="en">mayor</rdfs:label>
+        <rdfs:label xml:lang="es">alcalde</rdfs:label>
+        <rdfs:comment xml:lang="en">This property is used to refer to the mayor of a municipality. The corresponding DBpedia property is not used yet, since that one is an object property, as the mayor is treated as an instance of the concept Person. In Aragopedia we are not yet considering the mayor as an instance of the concept Person, and hence it is only a string for the time being.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad proporciona información sobre el alcalde de un municipio</rdfs:comment>
+        <rdfs:domain rdf:resource="&dbpedia;Municipality"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#menPopulation -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;menPopulation">
+        <rdfs:label xml:lang="en">male population</rdfs:label>
+        <rdfs:label xml:lang="es">población masculina</rdfs:label>
+        <rdfs:comment xml:lang="en">male population in an administrative region</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#numContenedoresVidrio -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;numContenedoresVidrio">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboReciclaje"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#numEstablecimientos -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;numEstablecimientos">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboTurismo"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#numKGVidrio -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;numKGVidrio">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboReciclaje"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#numPlazas -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;numPlazas">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboTurismo"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#population -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;population">
+        <rdfs:label xml:lang="en">population</rdfs:label>
+        <rdfs:label xml:lang="es">población</rdfs:label>
+        <rdfs:comment xml:lang="en">total population in an administrative region</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#president -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;president">
+        <rdfs:label xml:lang="en">president</rdfs:label>
+        <rdfs:label xml:lang="es">presidente</rdfs:label>
+        <rdfs:comment xml:lang="en">This property refers to the president of a Comarca</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad permite referirse al presidente de una comarca</rdfs:comment>
+        <rdfs:domain rdf:resource="&aragodef;Comarca"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#symbol -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;symbol">
+        <rdfs:label xml:lang="en">symbol</rdfs:label>
+        <rdfs:label xml:lang="es">símbolo</rdfs:label>
+        <rdfs:comment xml:lang="en">This property represents a symbol that is associated to a geographical administrative region, such as a flag, a cote d&apos;arms, etc.</rdfs:comment>
+        <rdfs:comment xml:lang="es">Esta propiedad se utiliza para incluir información sobre símbolos de la región administrativa en cuestión, como su bandera, escudo, etc.</rdfs:comment>
+        <rdfs:domain rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#womenPopulation -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;womenPopulation">
+        <rdfs:label xml:lang="en">female population</rdfs:label>
+        <rdfs:label xml:lang="es">población femenina</rdfs:label>
+        <rdfs:comment xml:lang="en">female population in an administrative region</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#year -->
+
+    <owl:DatatypeProperty rdf:about="&aragodef;year">
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboReciclaje"/>
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboTurismo"/>
+        <rdfs:subPropertyOf rdf:resource="&aragodef;dimensionCuboUsoSuelo"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://dbpedia.org/ontology/AdministrativeRegion -->
+
+    <owl:Class rdf:about="&dbpedia;AdministrativeRegion">
+        <rdfs:label xml:lang="en">administrative region</rdfs:label>
+        <rdfs:label xml:lang="es">región administrativa</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;Region"/>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/GovernmentalAdministrativeRegion -->
+
+    <owl:Class rdf:about="&dbpedia;GovernmentalAdministrativeRegion">
+        <rdfs:label xml:lang="en">governmental administrative region</rdfs:label>
+        <rdfs:label xml:lang="es">región administrativa gubernamental</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;AdministrativeRegion"/>
+        <rdfs:comment xml:lang="en">An administrative body governing some territorial unity, in this case a governmental administrative body</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/Municipality -->
+
+    <owl:Class rdf:about="&dbpedia;Municipality">
+        <rdfs:label xml:lang="en">municipality</rdfs:label>
+        <rdfs:label xml:lang="es">municipio</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:comment xml:lang="en">An administrative body governing a territorial unity on the lower level, administering one or a few more settlements</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/Place -->
+
+    <owl:Class rdf:about="&dbpedia;Place">
+        <rdfs:label xml:lang="en">place</rdfs:label>
+        <rdfs:label xml:lang="es">lugar</rdfs:label>
+        <owl:equivalentClass rdf:resource="&schema;Place"/>
+        <rdfs:comment xml:lang="en">A place. This concept is consider equivalent to the concept of Place from Schema.org</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/PopulatedPlace -->
+
+    <owl:Class rdf:about="&dbpedia;PopulatedPlace">
+        <rdfs:label xml:lang="en">populated place</rdfs:label>
+        <rdfs:label xml:lang="es">lugar poblado</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;Place"/>
+        <rdfs:comment xml:lang="en">As defined by the United States Geological Survey, a populated place is a place or area with clustered or scattered buildings and a permanent human population (city, settlement, town, or village) referenced with geographic coordinates</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/Province -->
+
+    <owl:Class rdf:about="&dbpedia;Province">
+        <rdfs:label xml:lang="en">province</rdfs:label>
+        <rdfs:label xml:lang="es">provincia</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:comment xml:lang="en">An administrative body governing a territorial unity on the intermediate level, between local and national level</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://dbpedia.org/ontology/Region -->
+
+    <owl:Class rdf:about="&dbpedia;Region">
+        <rdfs:label xml:lang="en">region</rdfs:label>
+        <rdfs:label xml:lang="es">región</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;PopulatedPlace"/>
+    </owl:Class>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#Comarca -->
+
+    <owl:Class rdf:about="&aragodef;Comarca">
+        <rdfs:label xml:lang="en">region (comarca)</rdfs:label>
+        <rdfs:label xml:lang="es">comarca</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+        <rdfs:comment xml:lang="en">An administrative body governing a territorial unity on the intermediate level, between local and national level
+</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#ComunidadAutonoma -->
+
+    <owl:Class rdf:about="&aragodef;ComunidadAutonoma">
+        <rdfs:label xml:lang="en">An administrative body governing a territorial unity on the intermediate level, between local and national level</rdfs:label>
+        <rdfs:label xml:lang="en">region (comunidad autónoma)</rdfs:label>
+        <rdfs:label xml:lang="es">comunidad autónoma</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&dbpedia;GovernmentalAdministrativeRegion"/>
+    </owl:Class>
+    
+
+
+    <!-- http://opendata.aragon.es/def/Aragopedia#TipoEstablecimientoTuristico -->
+
+    <owl:Class rdf:about="&aragodef;TipoEstablecimientoTuristico">
+        <rdfs:label xml:lang="en">type of touristic establishment</rdfs:label>
+        <rdfs:label xml:lang="es">Tipo de establecimiento turístico utilizado en los cubos de datos estadísticos sobre turismo. Puedes tratarse de un hotel, apartamentos, turismo rural o camping.</rdfs:label>
+        <rdfs:label xml:lang="es">tipo de establecimiento turístico</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://schema.org/Place -->
+
+    <owl:Class rdf:about="&schema;Place"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

@@ -5,10 +5,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>Open data euskadi</display-name>
-	<welcome-file-list>
-		<welcome-file>lod</welcome-file>
-	</welcome-file-list>
-
+	<!-- Default servlet -->
+	<servlet>
+		<servlet-name>DefaultServlet</servlet-name>
+		<servlet-class>
+			eus.euskadi.opendata.lod.servlet.DefaultServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DefaultServlet</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	<!-- sparql servlet -->
 	<servlet>
 		<servlet-name>SparqlServlet</servlet-name>
 		<servlet-class>
@@ -20,4 +29,42 @@
 		<servlet-name>SparqlServlet</servlet-name>
 		<url-pattern>/sparql</url-pattern>
 	</servlet-mapping>
+	<!-- resource servlet -->
+	<servlet>
+		<servlet-name>ResourceServlet</servlet-name>
+		<servlet-class>
+			eus.euskadi.opendata.lod.servlet.ResourceServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResourceServlet</servlet-name>
+		<url-pattern>/id/*</url-pattern>
+		<url-pattern>/kos/*</url-pattern>
+	</servlet-mapping>
+	<!-- data servlet -->
+	<servlet>
+		<servlet-name>DataServlet</servlet-name>
+		<servlet-class>
+			eus.euskadi.opendata.lod.servlet.DataServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DataServlet</servlet-name>
+		<url-pattern>/data/*</url-pattern>
+	</servlet-mapping>
+	<!-- ontology servlet -->
+	<servlet>
+		<servlet-name>OntologyServlet</servlet-name>
+		<servlet-class>
+			eus.euskadi.opendata.lod.servlet.OntologyServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OntologyServlet</servlet-name>
+		<url-pattern>/def/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
