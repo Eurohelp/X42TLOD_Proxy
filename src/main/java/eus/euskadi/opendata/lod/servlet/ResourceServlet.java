@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import eus.euskadi.opendata.lod.utils.HttpManager;
+import eus.euskadi.opendata.lod.utils.MIMEtype;
 import eus.euskadi.opendata.lod.utils.PropertiesManager;
 
 
@@ -33,17 +34,17 @@ public class ResourceServlet extends HttpServlet {
 			//get info from request URI
 			String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
 			String resourceId = resourceURI.split("/")[1];
-			String lang = "es";
-			if (req.getHeader("Accept").contains("text/html")){
+			String lang = HttpManager.getInstance().getLangFromResquest(req);
+			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue())){
 				//launch ASK query to blazegrah
-				String triplestore = PropertiesManager.getInstance().getProperty("lod.triplestore.url");
+				String triplestoreUrl = PropertiesManager.getInstance().getProperty("lod.triplestore.url");
 				
 				//create ASK query
 				String uriBasePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.uri.base.path"),lang);
 				String completeURI = uriBasePath + resourceURI.replaceFirst("/kos/", "/id/");
 				String query = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.sparql.query.ask"), completeURI);
 				//add query as parameter to URL
-				String url = triplestore + "?query="+URLEncoder.encode(query, "UTF-8");
+				String url = triplestoreUrl + "?query="+URLEncoder.encode(query, "UTF-8");
 				
 				
 				try {
@@ -59,9 +60,7 @@ public class ResourceServlet extends HttpServlet {
 			  			page = ((Boolean)obj.get("boolean")).booleanValue();
 			  		}
 			           
-					
 					if (page){
-					//redirect to other url
 						String basePagePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.page.url.base"),lang);
 						String redirectUri = basePagePath + resourceURI.replaceFirst("/"+resourceId+"/", "/page/");
 						resp.setStatus(HttpServletResponse.SC_SEE_OTHER);

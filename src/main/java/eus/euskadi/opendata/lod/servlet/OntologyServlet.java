@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import eus.euskadi.opendata.lod.utils.MIMEtype;
 import eus.euskadi.opendata.lod.utils.PropertiesManager;
 
 
@@ -23,7 +24,7 @@ public class OntologyServlet extends HttpServlet {
 		String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
 		String ontologyURI = resourceURI.replaceFirst("/def/", "");
 		try {
-			if (req.getHeader("Accept").contains("text/html") && !"euskadi.owl".equals(ontologyURI)){
+			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue()) && !"euskadi.owl".equals(ontologyURI)){
 				goToDefinitionHtml(req, resp, ontologyURI);
 			}else{
 				goToDefinitionOwl(req, resp);

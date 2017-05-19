@@ -77,12 +77,15 @@ public class HttpManager {
 	 * @param httpget the new http connection
 	 * @throws UnsupportedEncodingException
 	 */
-	private static void copyHeaders (HttpServletRequest req, HttpGet httpget) throws UnsupportedEncodingException{
+	private static void copyHeaders (HttpServletRequest req, HttpGet httpget, String acceptHeader) throws UnsupportedEncodingException{
 		//headers
 		Enumeration<String> aHeadersEnum = req.getHeaderNames();
 		while (aHeadersEnum.hasMoreElements()) {
 			String aHeaderName = aHeadersEnum.nextElement();
 			String aHeaderVal = req.getHeader(aHeaderName);
+			if ("accept".equals(aHeaderName)){
+				aHeaderVal = acceptHeader!= null?acceptHeader:aHeaderVal;
+			}
 			httpget.setHeader(aHeaderName, aHeaderVal);
 		}
 
@@ -157,7 +160,7 @@ public class HttpManager {
 	 * @param url
 	 * @throws Exception
 	 */
-	public void redirectGetRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url) throws Exception {
+	public void redirectGetRequest(HttpServletRequest theReq, HttpServletResponse theResp, String url, String acceptHeader) throws Exception {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = null;
 		HttpResponse response = null;
@@ -169,7 +172,7 @@ public class HttpManager {
 			String theReqUrl = addParamsToUrl(theReq, url);			
 			httpget = new HttpGet(theReqUrl);
 			//headers
-			copyHeaders(theReq, httpget);
+			copyHeaders(theReq, httpget, acceptHeader);
 			if (logger.isDebugEnabled()) logger.debug("executing request " + httpget.getURI());
 			// Create a response handler
 			response = httpclient.execute(httpget);
@@ -313,6 +316,59 @@ public class HttpManager {
 			httpclient.getConnectionManager().closeExpiredConnections();
 			httpclient.getConnectionManager().shutdown();
 		}
+	}
+	
+	/**
+	 * Gets language from Request 
+	 * @param theReq original request
+	 * @return lang
+	 */
+	public String getLangFromResquest (HttpServletRequest theReq) throws IOException{
+		return getLangFromHostName(theReq.getServerName());
+	}
+	
+	/**
+	 * Gets Lenguage from Hostname
+	 * @param hostName 
+	 * @return lang
+	 * @throws IOException
+	 */
+	private static String getLangFromHostName(String hostName) throws IOException  {
+		String lang = "es";
+		String[] pattern = PropertiesManager.getInstance().getProperty("lod.hostName.pattern").split(".");
+		String[] host = hostName.split(".");
+		for (int i=0;i<pattern.length;i++) {
+		    if (pattern[i].equals("{lang}")) {
+		        lang = host[i];
+		        break;
+		    }
+		}
+		return lang;
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws IOException
+	 */
+	public String getAccepptFromURI (String uri) throws IOException{
+		String acceptHeader =  MIMEtype.RDFXML.mimetypevalue();
+		String ext = uri.substring(uri.lastIndexOf("."));
+		switch (ext) {
+		case "json":
+			acceptHeader =  MIMEtype.JSONLD.mimetypevalue();
+			break;
+		case "rdf":
+			acceptHeader =  MIMEtype.RDFXML.mimetypevalue();
+			break;
+		case "ttl":
+			acceptHeader =  MIMEtype.Turtle.mimetypevalue();
+			break;
+		default:
+			break;
+		}
+		return acceptHeader;
 	}
 	
 }

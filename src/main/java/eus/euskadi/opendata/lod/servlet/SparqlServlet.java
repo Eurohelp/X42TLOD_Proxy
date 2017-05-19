@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import eus.euskadi.opendata.lod.utils.HttpManager;
+import eus.euskadi.opendata.lod.utils.MIMEtype;
 import eus.euskadi.opendata.lod.utils.PropertiesManager;
 
 /**
@@ -28,13 +29,13 @@ public class SparqlServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 		try {
-			if (req.getHeader("Accept").contains("text/html")){
+			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue())){
 				if(logger.isDebugEnabled()){
 				    logger.debug("Load Yasgui component");
 				}
 				goToEndpoint(req, resp); 
 			}else{
-				HttpManager.getInstance().redirectGetRequest(req, resp, PropertiesManager.getInstance().getProperty("lod.triplestore.url"));
+				HttpManager.getInstance().redirectGetRequest(req, resp, PropertiesManager.getInstance().getProperty("lod.triplestore.url"), null);
 			}
 		} catch (Exception e) {
 			throw new ServletException(e);
@@ -44,7 +45,7 @@ public class SparqlServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			if (req.getHeader("Accept").contains("text/html")){	
+			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue())){	
 				goToEndpoint(req, resp); 
 			}else{
 				HttpManager.getInstance().redirectPostRequest(req,resp, PropertiesManager.getInstance().getProperty("lod.triplestore.url"));

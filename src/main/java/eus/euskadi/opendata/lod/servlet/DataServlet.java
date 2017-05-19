@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import eus.euskadi.opendata.lod.utils.HttpManager;
+import eus.euskadi.opendata.lod.utils.MIMEtype;
 import eus.euskadi.opendata.lod.utils.PropertiesManager;
 
 
@@ -25,10 +26,16 @@ public class DataServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 		
+		String acceptHeader = null;
+		if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue())){
+			//tendremos que recuperar la extensión de la url. y segun eso decidir que mostrar.
+			 acceptHeader = HttpManager.getInstance().getAccepptFromURI(req.getRequestURI());
+		}
+		
 		String url = PropertiesManager.getInstance().getProperty("lod.triplestore.url");
 		String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
 		
-		String lang = "es";
+		String lang = HttpManager.getInstance().getLangFromResquest(req);
 		String basePath = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.uri.base.path"),lang);
 		String completeURI = basePath + resourceURI.replaceFirst("/data/", "/id/");
 		//add query as parameter to URL
@@ -37,7 +44,7 @@ public class DataServlet extends HttpServlet {
 		
 		
 		try {
-			HttpManager.getInstance().redirectGetRequest(req, resp, url);
+			HttpManager.getInstance().redirectGetRequest(req, resp, url, acceptHeader);
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
