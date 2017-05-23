@@ -1,6 +1,7 @@
 package eus.euskadi.opendata.lod.servlet;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import eus.euskadi.opendata.lod.utils.HttpManager;
 import eus.euskadi.opendata.lod.utils.MIMEtype;
 import eus.euskadi.opendata.lod.utils.PropertiesManager;
 
@@ -23,9 +25,10 @@ public class OntologyServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
 		String ontologyURI = resourceURI.replaceFirst("/def/", "");
+		String lang = HttpManager.getInstance().getLangFromResquest(req);
 		try {
 			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue()) && !"euskadi.owl".equals(ontologyURI)){
-				goToDefinitionHtml(req, resp, ontologyURI);
+				goToDefinitionHtml(resp, ontologyURI, lang);
 			}else{
 				goToDefinitionOwl(req, resp);
 			}
@@ -41,9 +44,9 @@ public class OntologyServlet extends HttpServlet {
 	 * @param resp the response
 	 * @throws Exception exception
 	 */
-	private void goToDefinitionHtml(HttpServletRequest req, HttpServletResponse resp, String ontology) throws Exception {
-		ontology = "definition";
-		String page = PropertiesManager.getInstance().getProperty("lod.webroot") + "pages/ontology_def.html#"+ ontology;
+	private void goToDefinitionHtml(HttpServletResponse resp, String ontology, String lang) throws Exception {
+		ontology = ontology.replaceAll("/", "_");
+		String page = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.webroot"),lang) +  "ontology_def.html#"+ ontology;
 		resp.setStatus(HttpServletResponse.SC_SEE_OTHER);
 		resp.addHeader("Location", page);
 	}

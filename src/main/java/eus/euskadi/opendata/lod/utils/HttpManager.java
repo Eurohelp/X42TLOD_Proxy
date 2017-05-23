@@ -352,23 +352,58 @@ public class HttpManager {
 	 * @return
 	 * @throws IOException
 	 */
-	public String getAccepptFromURI (String uri) throws IOException{
-		String acceptHeader =  MIMEtype.RDFXML.mimetypevalue();
+	public String getAcceptFromURI (String uri) throws IOException{
 		String ext = uri.substring(uri.lastIndexOf("."));
+		String acceptHeader =  MIMEtype.RDFXML.mimetypevalue();
 		switch (ext) {
-		case "json":
+		case ".jsonld":
 			acceptHeader =  MIMEtype.JSONLD.mimetypevalue();
 			break;
-		case "rdf":
+		case ".rdf":
 			acceptHeader =  MIMEtype.RDFXML.mimetypevalue();
 			break;
-		case "ttl":
+		case ".ttl":
 			acceptHeader =  MIMEtype.Turtle.mimetypevalue();
 			break;
 		default:
 			break;
 		}
 		return acceptHeader;
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean isURIWithExtension (String uri) throws IOException{
+		String extension = uri.substring(uri.lastIndexOf("."));
+		boolean is =  false;
+		switch (extension) {
+		case ".jsonld":
+			is =  true;
+			break;
+		case ".rdf":
+			is =  true;
+			break;
+		case ".ttl":
+			is =  true;
+			break;
+		default:
+			break;
+		}
+		return is;
+	}
+	
+	/**
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws IOException
+	 */
+	public String getURIWithoutExtension (String uri) throws IOException{
+		return uri.substring(0,uri.lastIndexOf("."));
 	}
 	
 }
