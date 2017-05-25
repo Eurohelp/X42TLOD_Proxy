@@ -9,6 +9,7 @@
 		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
 	</properties>
   <build>
+		 <finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

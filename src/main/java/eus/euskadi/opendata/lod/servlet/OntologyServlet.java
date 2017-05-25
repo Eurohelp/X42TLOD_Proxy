@@ -23,14 +23,26 @@ public class OntologyServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String resourceURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
-		String ontologyURI = resourceURI.replaceFirst("/def/", "");
+		String requestURI = req.getRequestURI().substring(req.getRequestURI().indexOf(req.getContextPath())+ req.getContextPath().length());
+		String[] uriData = requestURI.split("/");
+		String ontologyName = uriData[2];
+		String entityName = requestURI.replaceFirst("/def/" + ontologyName, "");
+		entityName = entityName.length()>0 ? entityName.replaceFirst("/", ""): entityName;
 		String lang = HttpManager.getInstance().getLangFromResquest(req);
 		try {
-			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue()) && !"euskadi.owl".equals(ontologyURI)){
-				goToDefinitionHtml(resp, ontologyURI, lang);
+			if (req.getHeader("Accept").contains(MIMEtype.HTML.mimetypevalue())){ 
+					if (ontologyName.endsWith(".owl")){
+						ontologyName = ontologyName.substring(0, ontologyName.lastIndexOf(".owl"));
+						goToDefinitionOwl(req, resp, ontologyName);
+					}else if (ontologyName.endsWith(".html")){
+						ontologyName = ontologyName.substring(0, ontologyName.lastIndexOf(".html"));
+						goToDefinitionHtml(req, resp, ontologyName);
+					}else{
+						redirectToDefinitionHtml(req, resp, lang, ontologyName, entityName);
+					}
 			}else{
-				goToDefinitionOwl(req, resp);
+				//habra que comprobar las ontologias permitidas
+				goToDefinitionOwl(req, resp, ontologyName);
 			}
 		} catch (Exception e) {
 			throw new ServletException(e);
@@ -44,11 +56,11 @@ public class OntologyServlet extends HttpServlet {
 	 * @param resp the response
 	 * @throws Exception exception
 	 */
-	private void goToDefinitionHtml(HttpServletResponse resp, String ontology, String lang) throws Exception {
-		ontology = ontology.replaceAll("/", "_");
-		String page = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.webroot"),lang) +  "ontology_def.html#"+ ontology;
+	private void redirectToDefinitionHtml(HttpServletRequest req, HttpServletResponse resp, String lang, String ontology, String entity) throws Exception {
+		String page = MessageFormat.format(PropertiesManager.getInstance().getProperty("lod.webroot"),lang) + "def/"+ontology+".html" + (entity.length()==0?"":"#"+entity);
 		resp.setStatus(HttpServletResponse.SC_SEE_OTHER);
 		resp.addHeader("Location", page);
+		
 	}
 	
 	/**
@@ -57,8 +69,19 @@ public class OntologyServlet extends HttpServlet {
 	 * @param resp the response
 	 * @throws Exception exception
 	 */
-	private void goToDefinitionOwl(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		getServletContext().getRequestDispatcher("/owl/euskadi.owl").forward
+	private void goToDefinitionOwl(HttpServletRequest req, HttpServletResponse resp, String ontology) throws Exception {
+		getServletContext().getRequestDispatcher("/owl/"+ontology+".owl").forward
+           (req, resp); 
+	}
+	
+	/**
+	 * Redirects to Ontology definition OWL file
+	 * @param req the request
+	 * @param resp the response
+	 * @throws Exception exception
+	 */
+	private void goToDefinitionHtml(HttpServletRequest req, HttpServletResponse resp, String ontology) throws Exception {
+		getServletContext().getRequestDispatcher("/pages/"+ontology+".html").forward
            (req, resp); 
 	}
 }
